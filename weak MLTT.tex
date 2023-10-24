@@ -239,11 +239,7 @@ $$\frac{
 
 \section{Equivalence types}
 
-$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \equiv \sum_{x:A} \prod_{y:A} x =_A y \; \mathrm{type}}$$
-
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \equiv \mathrm{isContr}\left(\sum_{x:A} B(x)\right) \; \mathrm{type}}$$
-
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:\prod_{x:A} B} \prod_{y:B} \exists!x:A.f(x) =_B y \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:\prod_{x:A} B}  \sum_{k:\sum_{g:\prod_{x:B} A} \prod_{x:A} g(f(x)) =_A x} \sum_{h:\prod_{x:B} A} \prod_{y:B} f(h(y)) =_B y \; \mathrm{type}}$$
 
 \section{Empty type}
 
@@ -346,6 +342,10 @@ $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathr
 
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \forall x:A.B(x) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \forall x:A.B(x) \equiv \left[\prod_{x:A} B(x)\right] \; \mathrm{type}}$$
 
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \equiv \sum_{x:A} \prod_{y:A} x =_A y \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \equiv \mathrm{isContr}\left(\sum_{x:A} B(x)\right) \; \mathrm{type}}$$
+
 \section{Quotient sets}
 
 $$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{EquivRel}(A) \; \mathrm{type}}$$ 
@@ -397,16 +397,8 @@ $$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \
 
 Extensionality principle of the natural numbers type:
 
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{Eq}_\mathbb{N}:\mathbb{N} \times \mathbb{N} \to \mathbb{2}}$$
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{N}^0:\mathrm{isProp}(0 =_\mathbb{N} 0)}$$
 
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \beta_\mathbb{N}^{0, 0, \mathbb{2}}:\mathrm{Eq}_\mathbb{N}(0, 0) =_\mathbb{2} 1}$$
-
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \beta_\mathbb{N}^{0, s, \mathbb{2}}:\prod_{x:\mathbb{N}} \mathrm{Eq}_\mathbb{N}(0, s(x)) =_\mathbb{2} 0}$$
-
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \beta_\mathbb{N}^{s, 0, \mathbb{2}}:\prod_{x:\mathbb{N}} \mathrm{Eq}_\mathbb{N}(s(x), 0) =_\mathbb{2} 0}$$
-
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \beta_\mathbb{N}^{s, s, \mathbb{2}}:\prod_{x:\mathbb{N}} \prod_{y:\mathbb{N}} \mathrm{Eq}_\mathbb{N}(s(x), s(y)) =_\mathbb{2} \mathrm{Eq}_\mathbb{N}(x, y)}$$
-
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{N}:\prod_{x:\mathbb{N}} \prod_{y:\mathbb{N}} (x =_{\mathbb{N}} y) \simeq \mathrm{typerec}_\mathbb{2}^{\emptyset, \mathbb{1}}(\mathrm{Eq}_\mathbb{N}(x, y))}$$
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{N}^s:\prod_{x:\mathbb{N}} \neg (0 =_\mathbb{N} s(x))}$$
 
 \end{document}

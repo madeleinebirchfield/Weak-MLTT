@@ -16,7 +16,7 @@
 \contentsline {subsection}{\numberline {1.3.3}Judgmental congruence rules for dependent pair types}{7}{}%
 \contentsline {subsection}{\numberline {1.3.4}Judgmental congruence rules for identity types}{7}{}%
 \contentsline {section}{\numberline {1.4}Equivalence types}{7}{}%
-\contentsline {section}{\numberline {1.5}Empty type}{8}{}%
+\contentsline {section}{\numberline {1.5}Empty type}{7}{}%
 \contentsline {section}{\numberline {1.6}Unit type}{8}{}%
 \contentsline {section}{\numberline {1.7}Type of booleans}{8}{}%
 \contentsline {section}{\numberline {1.8}Sum types}{9}{}%
