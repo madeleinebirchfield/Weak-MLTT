@@ -395,9 +395,11 @@ $$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \
 
 $$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{N}^{s, C} \equiv \beta_\mathbb{N}^{s, C'}:\prod_{c_0:C(0)} \prod_{c_s:\prod_{x:\mathbb{N}} C(x) \to C(s(x))} \prod_{x:\mathbb{N}} \mathrm{ind}_\mathbb{N}^C(c_0, c_s, s(x)) =_{C(s(x))} c_s(x)(\mathrm{ind}_\mathbb{N}^C(c_0, c_s, x))}$$
 
-Extensionality principle of the natural numbers type:
+Axiom K for the natural numbers type:
 
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{N}^0:\mathrm{isProp}(0 =_\mathbb{N} 0)}$$
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash K_\mathbb{N}:\prod_{x:\mathbb{N}} \prod_{p:x =_\mathbb{N} x} p =_{x =_\mathbb{N} x} \mathrm{refl}_\mathbb{N}(x)}$$
+
+Extensionality principle of the natural numbers type:
 
 $$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{N}^s:\prod_{x:\mathbb{N}} \neg (0 =_\mathbb{N} s(x))}$$
 
