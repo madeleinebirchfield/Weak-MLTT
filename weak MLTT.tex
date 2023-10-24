@@ -1,0 +1,398 @@
+\documentclass{book}
+\usepackage[margin=2.54cm]{geometry}
+\usepackage{bbold}
+\usepackage{amsmath}
+\usepackage{bussproofs}
+\begin{document}
+
+\tableofcontents
+
+\chapter{Rules for weak Martin-Löf type theory}
+
+\section{Dependent type theory}
+
+\subsection{Judgments and contexts}
+
+Dependent type theory consists of type judgments, term judgments, and context judgments:
+
+$$A \; \mathrm{type} \qquad a:A \qquad \Gamma \; \mathrm{ctx}$$
+
+Rules to form the empty context and to extend the context by a term judgment:
+
+$$\frac{}{() \; \mathrm{ctx}} \qquad \frac{\Gamma \; \mathrm{ctx} \quad \Gamma \vdash A \; \mathrm{type}}{(\Gamma, a:A) \; \mathrm{ctx}}$$
+
+\subsection{Variable rule}
+
+Variable rule: 
+
+$$\frac{\Gamma, a:A, \Delta \; \mathrm{ctx}}{\Gamma, a:A, \Delta \vdash a:A}$$
+
+\subsection{Admissible structural rules}
+
+Let $\mathcal{J}$ be any arbitrary judgment. 
+
+Weakening rule:
+$$\frac{\Gamma, \Delta \vdash \mathcal{J} \quad \Gamma \vdash A \; \mathrm{type}}{\Gamma, a:A, \Delta \vdash \mathcal{J}}$$
+
+Substitution rule:
+$$\frac{\Gamma \vdash a:A \quad \Gamma, b:A, \Delta(b) \vdash \mathcal{J}(b)}{\Gamma, \Delta(a) \vdash \mathcal{J}(a)}$$
+
+\section{Basic type formers}
+
+The basic type formers of dependent type theory are dependent function types, dependent pair types, and identity types.
+
+\subsection{Formation rules}
+
+Formation rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \prod_{x:A}.B(x) \; \mathrm{type}}$$
+
+Formation rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \sum_{x:A} B(x) \; \mathrm{type}}$$
+
+Formation rules for identity types:
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma, a:A, b:A \vdash \mathrm{Id}_A(a, b) \; \mathrm{type}}$$
+
+\subsection{Introduction rules}
+
+Introduction rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x)}{\Gamma \vdash \lambda_{\prod_{x:A} B(x)}^{x:A.b(x)}:\prod_{x:A}.B(x)}$$
+
+Introduction rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma, x:A, y:B(x) \vdash \mathrm{pair}_{\sum}^{A, B}(x, y):\sum_{x:A} B(x)}$$
+
+Introduction rules for identity types:
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma, a:A \vdash \mathrm{refl}_A(a):\mathrm{Id}_A(a, a)}$$
+
+\subsection{Elimination rules}
+
+Elimination rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma \vdash f:\prod_{x:A} B(x)}{\Gamma, x:A \vdash f(x):B(x)}$$
+
+Elimination rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_{\sum}^{A, B, C}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{z:\sum_{x:A} B(x)} C(z)}$$
+
+Dependent elimination rule for identity types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_{=}^{A, C}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \prod_{y:A} \prod_{p:x =_A y} C(x, y, p)}$$
+
+\subsection{Computation rules}
+
+Computation rules for dependent function types
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x)}{\Gamma \vdash \beta_{\prod_{x:A} B(x)}^{x:A.b(x)}:\prod_{x:A} \lambda_{\prod_{x:A} B(x)}^{x:A.b(x)}(x) =_{B(x)} b(x)}$$
+
+Computation rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type}}{\Gamma \vdash \beta_{\sum}^{A, B, C}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{x:A} \prod_{y:B(x)} \mathrm{ind}_{\sum}^{A, B, C}(g, \mathrm{pair}_{\sum}^{A, B}(x, y)) =_{C(\mathrm{pair}_{\sum}^{A, B}(x, y))} g(x, y)}$$
+
+Computation rules for identity types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \; \mathrm{type}}{\Gamma \vdash \beta_{\mathrm{ind}_{=}}^{A, C}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \mathrm{ind}_{\mathrm{Id}}^{A, C}(t, x, x, \mathrm{refl}_A(x)) =_{C(x, x, \mathrm{refl}_A(x))} t(x)}$$
+
+\subsection{Uniqueness rules}
+
+Uniqueness rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \eta_{\prod_{x:A} B(x)}:\prod_{f:\prod_{x:A} B(x)} f =_{\prod_{x:A} B(x)} \lambda_{\prod_{x:A} B(x)}^{x:A.f(x)}}$$
+
+\subsection{Extensionality rules}
+
+Extensionality rules for dependent function types:
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{homToId}_{\prod_{x:A} B(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \prod_{H:\prod_{x:A} f(x) =_{B(x)} g(x)} f =_{\prod_{x:A} B(x)} g}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ext}_{\prod_{x:A} B(x)}:
+\begin{array}{l}
+	\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \prod_{H:\prod_{x:A} f(x) =_{B(x)} g(x)} \\
+	\mathrm{ind}_{=}(\lambda f.\lambda x.\mathrm{refl}_{B(x)}(f(x)), f, g, \mathrm{homToId}_{\prod_{x:A} B(x)}(f, g, H)) =_{\prod_{x:A} f(x) =_{B(x)} g(x)} H
+\end{array}
+}$$
+
+\section{Judgmental equality}
+
+We add to the type theory two additional judgments called judgmental equality of types and judgmental equality of terms:
+
+$$\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash a \equiv a':A$$
+
+\subsection{Structural rules for judgmental equality}
+
+Reflexivity of judgmental equality
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash A \equiv A \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a:A}{\Gamma \vdash a \equiv a:A}$$
+
+Symmetry of judgmental equality
+$$\frac{\Gamma \vdash A \equiv B \; \mathrm{type}}{\Gamma \vdash B \equiv A \; \mathrm{type}}$$ 
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a \equiv b:A}{\Gamma \vdash b \equiv a:A}$$
+
+Transitivity of judgmental equality
+$$\frac{\Gamma \vdash A \equiv B \; \mathrm{type} \quad \Gamma \vdash B \equiv C \; \mathrm{type} }{\Gamma \vdash A \equiv C \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a \equiv b:A \quad b \equiv c:A }{\Gamma \vdash a \equiv c:A}$$
+
+Substitution of judgmentally equal terms:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a \equiv b : A \quad \Gamma, x:A, \Delta(x) \vdash B(x) \; \mathrm{type}}{\Gamma, \Delta(a) \vdash B(a) \equiv B(b) \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a \equiv b : A \quad \Gamma, x:A, \Delta(x) \vdash B(x) \; \mathrm{type}}{\Gamma, \Delta(b) \vdash B(a) \equiv B(b) \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a \equiv b : A \quad \Gamma, x:A, \Delta(x) \vdash c(x):B(x)}{\Gamma, \Delta(a) \vdash c(a) \equiv c(b): B(a)}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a \equiv b : A \quad \Gamma, x:A, \Delta(x) \vdash c(x):B(x)}{\Gamma, \Delta(b) \vdash c(a) \equiv c(b): B(b)}$$
+
+Judgmental variable conversion rule:
+$$\frac{\Gamma \vdash A \equiv B \; \mathrm{type} \quad \Gamma, x:A, \Delta \vdash \mathcal{J}}{\Gamma, x:B, \Delta \vdash \mathcal{J}}$$
+
+\subsection{Judgmental congruence rules for dependent function types}
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma \vdash A' \; \mathrm{type} \quad \Gamma, x:A' \vdash B'(x) \; \mathrm{type} \\
+	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \prod_{x:A} B(x) \equiv \prod_{x:A'} B'(x)\; \mathrm{type}}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x) \quad \Gamma, x:A \vdash b'(x):B(x) \\ 
+	\Gamma, x:A \vdash b(x) \equiv b'(x):B(x)
+\end{array}
+}{\Gamma \vdash \lambda_{\prod_{x:A} B(x)}^{x:A.b(x)} \equiv \lambda_{\prod_{x:A} B(x)}^{x:A.b'(x)}:\prod_{x:A}.B(x)}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma \vdash f:\prod_{x:A} B(x) \quad f':\prod_{x:A} B(x) \\
+	\Gamma \vdash f \equiv f':\prod_{x:A} B(x)
+\end{array}
+}{\Gamma, x:A \vdash f(x) \equiv f'(x):B(x)}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x) \quad \Gamma, x:A \vdash b'(x):B(x) \\ 
+	\Gamma, x:A \vdash b(x) \equiv b'(x):B(x)
+\end{array}
+}{\Gamma \vdash \beta_{\prod_{x:A} B(x)}^{x:A.b(x)} \equiv \beta_{\prod_{x:A} B(x)}^{x:A.b'(x)}:\prod_{x:A} b(x) =_{B(x)} \lambda_{\prod_{x:A} B(x)}^{x:A.b(x)}(x)}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash B'(x) \; \mathrm{type} \\
+	\Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \eta_{\prod_{x:A} B(x)} \equiv \eta_{\prod_{x:A} B'(x)}:\prod_{f:\prod_{x:A} B(x)} f =_{\prod_{x:A} B(x)} \lambda_{\prod_{x:A} B(x)}^{x:A.f(x)}}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash B'(x) \; \mathrm{type} \\
+	\Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \mathrm{homToId}_{\prod_{x:A} B(x)} \equiv \mathrm{homToId}_{\prod_{x:A} B'(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \left(\prod_{x:A} f(x) =_{B(x)} g(x)\right) \to (f =_{\prod_{x:A} B(x)} g)}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash B'(x) \; \mathrm{type} \\
+	\Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \mathrm{ext}_{\prod_{x:A} B(x)} \equiv \mathrm{ext}_{\prod_{x:A} B'(x)}:
+\begin{array}{l}
+	\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \prod_{H:\prod_{x:A} f(x) =_{B(x)} g(x)} \\
+	\mathrm{rec}_{=}(\lambda f.\lambda x.\mathrm{refl}_{B(x)}(f(x)), f, g, \mathrm{homToId}_{\prod_{x:A} B(x)}(f, g, H)) =_{\prod_{x:A} f(x) =_{B(x)} g(x)} H
+\end{array}
+}$$
+
+\subsection{Judgmental congruence rules for dependent pair types}
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma \vdash A' \; \mathrm{type} \quad \Gamma, x:A' \vdash B'(x) \; \mathrm{type} \\
+	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \sum_{x:A} B(x) \equiv \sum_{x:A'} B'(x)\; \mathrm{type}}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma \vdash A' \; \mathrm{type} \quad \Gamma, x:A' \vdash B'(x) \; \mathrm{type} \\
+	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
+\end{array}
+}{\Gamma, x:A, y:B(x) \vdash \mathrm{pair}_{\sum}^{A, B} \equiv \mathrm{pair}_{\sum}^{A', B'}:\sum_{x:A} B(x)}$$
+
+$$\frac{
+\begin{array}{c}
+\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type} \\
+\Gamma, z:\sum_{x:A} B(x) \vdash C'(z) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \equiv C'(z) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \mathrm{ind}_{\sum}^{A, B, C} \equiv \mathrm{ind}_{\sum}^{A, B, C'}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{z:\sum_{x:A} B(x)} C(z)}$$
+
+$$\frac{
+\begin{array}{c}
+\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type} \\
+\Gamma, z:\sum_{x:A} B(x) \vdash C'(z) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \equiv C'(z) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \beta_{\sum}^{A, B, C} \equiv \beta_{\sum}^{A, B, C'}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{x:A} \prod_{y:B(x)} \mathrm{ind}_{\sum}^{A, B, C}(g, \mathrm{pair}_{\sum}^{A, B}(x, y)) =_{C(\mathrm{pair}_{\sum}^{A, B}(x, y))} g(x, y)}$$
+
+\subsection{Judgmental congruence rules for identity types}
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash A' \; \mathrm{type} \quad \Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma, x:A, y:A \vdash x =_A y \equiv x =_A' y}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash A' \; \mathrm{type} \quad \Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma \vdash \mathrm{refl}_A \equiv \mathrm{refl}_{A'}:\prod_{x:A} x =_A x}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \; \mathrm{type} \quad \Gamma, x:A', y:A', p:x =_{A'} y \vdash C'(x, y, p) \; \mathrm{type} \\
+	\Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \equiv C'(x, y, p) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \mathrm{ind}_{=}^{A, C} \equiv \mathrm{ind}_{=}^{A', C'}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \prod_{y:A} \prod_{p:x =_A y} C(x, y, p)}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A, y:A, p:\mathrm{Id}_A(x, y) \vdash C(x, y, p) \; \mathrm{type} \quad \Gamma, x:A', y:A', p:x =_{A'} y \vdash C'(x, y, p) \; \mathrm{type} \\
+	\Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \equiv C'(x, y, p) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \beta_{ \mathrm{ind}_=}^{A, C} \equiv \beta_{\mathrm{ind}_=}^{A', C'}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \mathrm{ind}_{=}^{A, C}(t, x, x, \mathrm{refl}_A(x)) =_{C(x, x, \mathrm{refl}_A(x))} t(x)}$$
+
+\section{Equivalence types}
+
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \equiv \sum_{x:A} \prod_{y:A} x =_A y \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \equiv \mathrm{isContr}\left(\sum_{x:A} B(x)\right) \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:\prod_{x:A} B} \prod_{y:B} \exists!x:A.f(x) =_B y \; \mathrm{type}}$$
+
+\section{Empty type}
+
+Formation rule for the empty type
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \emptyset \; \mathrm{type}}$$
+
+Elimination rule for the empty type:
+$$\frac{\Gamma, x:\emptyset \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\emptyset^C:\prod_{x:\emptyset} C(x) \; \mathrm{type}}$$
+
+Judgmental congruence rules for the empty type:
+$$\frac{\Gamma, x:\emptyset \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\emptyset^C \equiv \mathrm{ind}_\emptyset^{C'}:\prod_{x:\emptyset} C(x) \; \mathrm{type}}$$
+
+\section{Unit type}
+
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \equiv \prod_{x:\emptyset} \emptyset \; \mathrm{type}}$$
+
+\section{Type of booleans}
+
+Formation rule for the type of booleans
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{2} \; \mathrm{type}}$$
+
+Introduction rule for the type of booleans
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash 0:\mathbb{2}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash 1:\mathbb{2}}$$
+
+Elimination rules for the type of booleans:
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{2}^C:\prod_{a:C(0)} \prod_{b:C(1)} \prod_{x:\mathbb{2}} C(x)}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
+
+Computation rules for the type of booleans:
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, C}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 0) =_{C(0)} a}$$
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, C}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 1) =_{C(1)} b}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(0) \simeq A}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(1) \simeq B}$$
+
+Extensionality rule for the type of booleans:
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{2}:\prod_{x:\mathbb{2}} \prod_{y:\mathbb{2}} (x =_{\mathbb{2}} y) \simeq (\mathrm{typerec}_\mathbb{2}^{\emptyset, \mathbb{1}}(x) \simeq \mathrm{typerec}_\mathbb{2}^{\emptyset, \mathbb{1}}(y))}$$
+
+Judgmental congruence rules for the type of booleans:
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{2}^C \equiv \mathrm{ind}_\mathbb{2}^{C'}:\prod_{a:C(0)} \prod_{b:C(1)} \prod_{x:\mathbb{2}} C(x)}$$
+
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \equiv \mathrm{typerec}_\mathbb{2}^{A', B'}(x) \; \mathrm{type}}$$
+
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, C} \equiv \beta_\mathbb{2}^{0, C'}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 0) =_{C(0)} a}$$
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, C} \equiv \beta_\mathbb{2}^{1, C'}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 1) =_{C(1)} b}$$
+
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, A, B} \equiv \beta_\mathbb{2}^{0, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(0) \simeq A}$$
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, A, B} \equiv \beta_\mathbb{2}^{1, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(1) \simeq B}$$
+
+\section{Sum types}
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \equiv \sum_{x:\mathbb{2}} \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
+
+\section{Product types}
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \times B \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \times B \equiv \prod_{x:\mathbb{2}} \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
+
+\section{Function types}
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \to B \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \to B \equiv \prod_{x:A} B \; \mathrm{type}}$$
+
+\section{Type of propositions}
+
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isProp}(A) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isProp}(A) \equiv \prod_{x:A} \prod_{y:A} x =_A y \; \mathrm{type}}$$
+
+Formation rules for the type of propositions:
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{Prop} \; \mathrm{type}}$$
+
+Introduction rule for the type of propositions:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash \mathrm{proptrunc}_A:\mathrm{isProp}(A)}{\Gamma \vdash A:\mathrm{Prop}}$$
+
+Elimination rules for the type of propositions:
+$$\frac{\Gamma \vdash A:\mathrm{Prop}}{\Gamma \vdash A \; \mathrm{type}} \quad \frac{\Gamma \vdash A \equiv A':\mathrm{Prop}}{\Gamma \vdash A \equiv A' \; \mathrm{type}}$$
+
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{proptrunc}:\prod_{A:\mathrm{Prop}} \mathrm{isProp}(A)}$$
+
+Extensionality rules for the type of propositions:
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_{\mathrm{Prop}}:\prod_{A:\mathrm{Prop}} \prod_{B:\mathrm{Prop}} (A =_{\mathrm{Prop}} B) \simeq (A \simeq B)}$$
+
+\section{Predicate logic}
+
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash [A] \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash [A] \equiv \prod_{P:\mathrm{Prop}} (A \to P) \to P \; \mathrm{type}}$$
+
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \bot \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \bot \equiv [\emptyset] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \top \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \top \equiv [\mathbb{1}] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \neg A \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \neg A \equiv [A \to \emptyset] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \vee B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \vee B \equiv [A + B] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \wedge B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \wedge B \equiv [A \times B] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \implies B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \implies B \equiv [A \to B] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \iff B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \iff B \equiv [A \simeq B] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists x:A.B(x) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists x:A.B(x) \equiv \left[\sum_{x:A} B(x)\right] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \forall x:A.B(x) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \forall x:A.B(x) \equiv \left[\prod_{x:A} B(x)\right] \; \mathrm{type}}$$
+
+\section{Quotient sets}
+
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{EquivRel}(A) \; \mathrm{type}}$$ 
+
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{EquivRel}(A) \equiv \sum_{R:A \times A \to \mathrm{Prop}} \prod_{x:A} R(x, x) \times \prod_{y:A} (R(x, y) \to R(y, x)) \times \prod_{z:A} (R(x, y) \times R(y, z)) \to R(x, z) \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash R:\mathrm{EquivRel}(A)}{\Gamma \vdash A / R \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash R:\mathrm{EquivRel}(A)}{\Gamma \vdash A / R \equiv \sum_{P:A \to \mathrm{Prop}} \exists x:A.\forall y:A.P(x) =_{\mathrm{Prop}} \pi_1(R)(x, y) \; \mathrm{type}}$$
+
+\section{Excluded middle and axiom of choice}
+
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{lem}:\prod_{P:\mathrm{Prop}} P + \neg P}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isSet}(A) \; \mathrm{type}} \qquad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isSet}(A) \equiv \prod_{x:A} \prod_{y;A} \mathrm{isProp}(x =_A y) \; \mathrm{type}}$$ 
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A, y:B(x) \vdash C(x, y) \; \mathrm{type}}{\Gamma \vdash \mathrm{choice}_{A, B, C}:\left(\mathrm{isSet}(A) \times \prod_{x:A} \mathrm{isSet}(B(x))\right) \to \forall x:A.\exists y:B(x).C(x, y) \to \exists g:\prod_{x:A} B(x).\forall x:A.C(x, g(x))}$$
+
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type} \quad \Gamma, x:A, y:B(x) \vdash C(x, y) \equiv C'(x, y) \; \mathrm{type}}{\Gamma \vdash \mathrm{choice}_{A, B, C} \equiv \mathrm{choice}_{A', B', C'}:
+\begin{array}{c}
+\left(\mathrm{isSet}(A) \times \prod_{x:A} \mathrm{isSet}(B(x))\right) \to \\
+\forall x:A.\exists y:B(x).C(x, y) \to \exists g:\prod_{x:A} B(x).\forall x:A.C(x, g(x))
+\end{array}
+}$$
+
+\section{Natural numbers type}
+
+Formation rules for the natural numbers type:
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{N} \; \mathrm{type}}$$
+
+Introduction rules for the natural numbers type:
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash 0:\mathbb{N}} \qquad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash s:\mathbb{N} \to \mathbb{N}}$$
+
+Elimination rules for the natural numbers type:
+$$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{N}^C:\prod_{c_0:C(0)} \prod_{c_s:\prod_{x:\mathbb{N}} C(x) \to C(s(x))} \prod_{x:\mathbb{N} C(x)}}$$
+
+Computation rules for the natural numbers type:
+
+$$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{N}^{0, C}:\prod_{c_0:C(0)} \prod_{c_s:\prod_{x:\mathbb{N}} C(x) \to C(s(x))} \mathrm{ind}_\mathbb{N}^C(c_0, c_s, 0) =_{C(0)} c_0}$$
+
+$$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{N}^{s, C}:\prod_{c_0:C(0)} \prod_{c_s:\prod_{x:\mathbb{N}} C(x) \to C(s(x))} \prod_{x:\mathbb{N}} \mathrm{ind}_\mathbb{N}^C(c_0, c_s, s(x)) =_{C(s(x))} c_s(x)(\mathrm{ind}_\mathbb{N}^C(c_0, c_s, x))}$$
+
+Judgmental congruence rules for the natural numbers type:
+$$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{N}^C \equiv \mathrm{ind}_\mathbb{N}^{C'}:\prod_{c_0:C(0)} \prod_{c_s:\prod_{x:\mathbb{N}} C(x) \to C(s(x))} \prod_{x:\mathbb{N} C(x)}}$$
+
+$$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{N}^{0, C} \equiv \beta_\mathbb{N}^{0, C'}:\prod_{c_0:C(0)} \prod_{c_s:\prod_{x:\mathbb{N}} C(x) \to C(s(x))} \mathrm{ind}_\mathbb{N}^C(c_0, c_s, 0) =_{C(0)} c_0}$$
+
+$$\frac{\Gamma, x:\mathbb{N} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{N}^{s, C} \equiv \beta_\mathbb{N}^{s, C'}:\prod_{c_0:C(0)} \prod_{c_s:\prod_{x:\mathbb{N}} C(x) \to C(s(x))} \prod_{x:\mathbb{N}} \mathrm{ind}_\mathbb{N}^C(c_0, c_s, s(x)) =_{C(s(x))} c_s(x)(\mathrm{ind}_\mathbb{N}^C(c_0, c_s, x))}$$
+
+\end{document}
