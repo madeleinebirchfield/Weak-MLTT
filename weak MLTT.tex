@@ -215,7 +215,7 @@ $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}
 
 Function extensionality rule:
 
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{funext}_{\prod_{x:A} B(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} (f =_{\prod_{x:A} B(x)} g) \simeq \prod_{x:A} f(x) =_{B(x)} g(x)}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{funext}_{A, B}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} (f =_{\prod_{x:A} B(x)} g) \simeq \prod_{x:A} f(x) =_{B(x)} g(x)}$$
 
 Judgmental congruence rules for function extensionality:
 
@@ -223,7 +223,7 @@ $$\frac{
 \begin{array}{c}
 	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
 \end{array}
-}{\Gamma \vdash \mathrm{funext}_{\prod_{x:A} B(x)} \equiv \mathrm{funext}_{\prod_{x:A'} B'(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} (f =_{\prod_{x:A} B(x)} g) \simeq \prod_{x:A} f(x) =_{B(x)} g(x)}$$
+}{\Gamma \vdash \mathrm{funext}_{A, B} \equiv \mathrm{funext}_{A', B'}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} (f =_{\prod_{x:A} B(x)} g) \simeq \prod_{x:A} f(x) =_{B(x)} g(x)}$$
 
 \section{Empty type}
 
