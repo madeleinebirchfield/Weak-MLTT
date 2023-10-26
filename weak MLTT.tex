@@ -90,19 +90,6 @@ $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdas
 Uniqueness rules for dependent function types:
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \eta_{\prod_{x:A} B(x)}:\prod_{f:\prod_{x:A} B(x)} f =_{\prod_{x:A} B(x)} \lambda_{\prod_{x:A} B(x)}^{x:A.f(x)}}$$
 
-\subsection{Extensionality rules}
-
-Extensionality rules for dependent function types:
-
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{homToId}_{\prod_{x:A} B(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \prod_{H:\prod_{x:A} f(x) =_{B(x)} g(x)} f =_{\prod_{x:A} B(x)} g}$$
-
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ext}_{\prod_{x:A} B(x)}:
-\begin{array}{l}
-	\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \prod_{H:\prod_{x:A} f(x) =_{B(x)} g(x)} \\
-	\mathrm{ind}_{=}(\lambda f.\lambda x.\mathrm{refl}_{B(x)}(f(x)), f, g, \mathrm{homToId}_{\prod_{x:A} B(x)}(f, g, H)) =_{\prod_{x:A} f(x) =_{B(x)} g(x)} H
-\end{array}
-}$$
-
 \section{Judgmental equality}
 
 We add to the type theory two additional judgments called judgmental equality of types and judgmental equality of terms:
@@ -168,25 +155,6 @@ $$\frac{
 \end{array}
 }{\Gamma \vdash \eta_{\prod_{x:A} B(x)} \equiv \eta_{\prod_{x:A} B'(x)}:\prod_{f:\prod_{x:A} B(x)} f =_{\prod_{x:A} B(x)} \lambda_{\prod_{x:A} B(x)}^{x:A.f(x)}}$$
 
-$$\frac{
-\begin{array}{c}
-	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash B'(x) \; \mathrm{type} \\
-	\Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
-\end{array}
-}{\Gamma \vdash \mathrm{homToId}_{\prod_{x:A} B(x)} \equiv \mathrm{homToId}_{\prod_{x:A} B'(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \left(\prod_{x:A} f(x) =_{B(x)} g(x)\right) \to (f =_{\prod_{x:A} B(x)} g)}$$
-
-$$\frac{
-\begin{array}{c}
-	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash B'(x) \; \mathrm{type} \\
-	\Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
-\end{array}
-}{\Gamma \vdash \mathrm{ext}_{\prod_{x:A} B(x)} \equiv \mathrm{ext}_{\prod_{x:A} B'(x)}:
-\begin{array}{l}
-	\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} \prod_{H:\prod_{x:A} f(x) =_{B(x)} g(x)} \\
-	\mathrm{rec}_{=}(\lambda f.\lambda x.\mathrm{refl}_{B(x)}(f(x)), f, g, \mathrm{homToId}_{\prod_{x:A} B(x)}(f, g, H)) =_{\prod_{x:A} f(x) =_{B(x)} g(x)} H
-\end{array}
-}$$
-
 \subsection{Judgmental congruence rules for dependent pair types}
 
 $$\frac{
@@ -249,6 +217,21 @@ $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}
 
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \; \mathrm{type}}$$ 
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:\prod_{x:A} B} \left(\sum_{g:\prod_{x:B} A} \prod_{x:A} g(f(x)) =_A x\right) \times \left(\sum_{h:\prod_{x:B} A} \prod_{y:B} f(h(y)) =_B y\right) \; \mathrm{type}}$$
+
+\section{Function extensionality}
+
+Function extensionality rule:
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{funext}_{\prod_{x:A} B(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} (f =_{\prod_{x:A} B(x)} g) \simeq \prod_{x:A} f(x) =_{B(x)} g(x)}$$
+
+Judgmental congruence rules for function extensionality:
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash B'(x) \; \mathrm{type} \\
+	\Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
+\end{array}
+}{\Gamma \vdash \mathrm{funext}_{\prod_{x:A} B(x)} \equiv \mathrm{funext}_{\prod_{x:A} B'(x)}:\prod_{f;\prod_{x:A} B(x)} \prod_{g:\prod_{x:A} B(x)} (f =_{\prod_{x:A} B(x)} g) \simeq \prod_{x:A} f(x) =_{B(x)} g(x)}$$
 
 \section{Empty type}
 
