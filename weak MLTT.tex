@@ -209,7 +209,7 @@ $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}
 \section{Equivalence types}
 
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \; \mathrm{type}}$$ 
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:\prod_{x:A} B} \left(\sum_{g:\prod_{x:B} A} \prod_{x:A} g(f(x)) =_A x\right) \times \left(\sum_{h:\prod_{x:B} A} \prod_{y:B} f(h(y)) =_B y\right) \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:A \to B} \left(\sum_{g:B \to A} \prod_{x:A} g(f(x)) =_A x\right) \times \left(\sum_{h:B \to A} \prod_{y:B} f(h(y)) =_B y\right) \; \mathrm{type}}$$
 
 \section{Function extensionality}
 
