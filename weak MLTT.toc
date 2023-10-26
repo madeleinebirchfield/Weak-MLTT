@@ -19,7 +19,7 @@
 \contentsline {section}{\numberline {1.6}Equivalence types}{7}{}%
 \contentsline {section}{\numberline {1.7}Function extensionality}{7}{}%
 \contentsline {section}{\numberline {1.8}Empty type}{7}{}%
-\contentsline {section}{\numberline {1.9}Unit type}{8}{}%
+\contentsline {section}{\numberline {1.9}Unit type}{7}{}%
 \contentsline {section}{\numberline {1.10}Type of booleans}{8}{}%
 \contentsline {section}{\numberline {1.11}Sum types}{9}{}%
 \contentsline {section}{\numberline {1.12}Type of propositions}{9}{}%
