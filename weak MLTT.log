@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.19)  24 OCT 2023 15:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.19)  26 OCT 2023 16:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -230,20 +230,16 @@ Overfull \hbox (13.94809pt too wide) detected at line 238
 []
  []
 
-
-Overfull \hbox (29.99683pt too wide) detected at line 242
-[] []
- []
-
+[7]
 LaTeX Font Info:    Trying to load font information for U+bbold on input line 2
-57.
-(/usr/local/texlive/2021/texmf-dist/tex/latex/bbold/Ubbold.fd) [7] [8] [9]
-Overfull \hbox (43.08197pt too wide) detected at line 353
+66.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/bbold/Ubbold.fd) [8] [9]
+Overfull \hbox (43.08197pt too wide) detected at line 354
 []
  []
 
 
-Overfull \hbox (17.10179pt too wide) detected at line 365
+Overfull \hbox (17.10179pt too wide) detected at line 366
 []
  []
 
@@ -255,7 +251,7 @@ Here is how much of TeX's memory you used:
  19314 multiletter control sequences out of 15000+600000
  407528 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 68i,8n,74p,431b,156s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 68i,8n,74p,431b,154s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/pu
 blic/bbold-type1/bbold10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
 blic/bbold-type1/bbold5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
@@ -274,7 +270,7 @@ m/cmsl10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/
 cmsy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 sy7.pfb>
-Output written on "weak MLTT.pdf" (11 pages, 187091 bytes).
+Output written on "weak MLTT.pdf" (11 pages, 187055 bytes).
 PDF statistics:
  108 PDF objects out of 1000 (max. 8388607)
  77 compressed objects within 1 object stream

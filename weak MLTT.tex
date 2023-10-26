@@ -237,9 +237,18 @@ $$\frac{
 \end{array}
 }{\Gamma \vdash \beta_{ \mathrm{ind}_=}^{A, C} \equiv \beta_{\mathrm{ind}_=}^{A', C'}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \mathrm{ind}_{=}^{A, C}(t, x, x, \mathrm{refl}_A(x)) =_{C(x, x, \mathrm{refl}_A(x))} t(x)}$$
 
+\section{Product types}
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \times B \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \times B \equiv \sum_{x:A} B \; \mathrm{type}}$$
+
+\section{Function types}
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \to B \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \to B \equiv \prod_{x:A} B \; \mathrm{type}}$$
+
 \section{Equivalence types}
 
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:\prod_{x:A} B}  \sum_{k:\sum_{g:\prod_{x:B} A} \prod_{x:A} g(f(x)) =_A x} \sum_{h:\prod_{x:B} A} \prod_{y:B} f(h(y)) =_B y \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \; \mathrm{type}}$$ 
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \simeq B \equiv \sum_{f:\prod_{x:A} B} \left(\sum_{g:\prod_{x:B} A} \prod_{x:A} g(f(x)) =_A x\right) \times \left(\sum_{h:\prod_{x:B} A} \prod_{y:B} f(h(y)) =_B y\right) \; \mathrm{type}}$$
 
 \section{Empty type}
 
@@ -254,7 +263,7 @@ $$\frac{\Gamma, x:\emptyset \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \v
 
 \section{Unit type}
 
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \equiv \prod_{x:\emptyset} \emptyset \; \mathrm{type}}$$
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \equiv \emptyset \to \emptyset \; \mathrm{type}}$$
 
 \section{Type of booleans}
 
@@ -293,14 +302,6 @@ $$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv 
 \section{Sum types}
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \; \mathrm{type}}$$
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \equiv \sum_{x:\mathbb{2}} \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
-
-\section{Product types}
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \times B \; \mathrm{type}}$$
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \times B \equiv \prod_{x:\mathbb{2}} \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
-
-\section{Function types}
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \to B \; \mathrm{type}}$$
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \to B \equiv \prod_{x:A} B \; \mathrm{type}}$$
 
 \section{Type of propositions}
 
