@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.19)  26 OCT 2023 17:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.11.19)  6 NOV 2023 22:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -214,17 +214,16 @@ Overfull \hbox (36.10843pt too wide) detected at line 181
 LaTeX Font Info:    Trying to load font information for U+bbold on input line 2
 41.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/bbold/Ubbold.fd) [7] [8]
-[9]
-Overfull \hbox (43.08197pt too wide) detected at line 329
+Overfull \hbox (43.08197pt too wide) detected at line 309
 []
  []
 
 
-Overfull \hbox (17.10179pt too wide) detected at line 341
+Overfull \hbox (17.10179pt too wide) detected at line 321
 []
  []
 
-[10] [11] (./weak MLTT.aux) ) 
+[9] [10] (./weak MLTT.aux) ) 
 Here is how much of TeX's memory you used:
  1802 strings out of 478994
  25326 string characters out of 5858183
@@ -233,28 +232,28 @@ Here is how much of TeX's memory you used:
  407528 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  68i,8n,74p,431b,156s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2021/texmf-dist/fonts/type1/pu
-blic/bbold-type1/bbold10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pu
-blic/bbold-type1/bbold5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
-lic/bbold-type1/bbold7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/
-amsfonts/cmextra/cmex7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publi
-c/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsl10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmsy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-sy7.pfb>
-Output written on "weak MLTT.pdf" (11 pages, 184224 bytes).
+</usr/local/texlive/2021/texmf-dist/fonts/type1/pub
+lic/bbold-type1/bbold10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/pub
+lic/bbold-type1/bbold5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publ
+ic/bbold-type1/bbold7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmex10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/a
+msfonts/cmextra/cmex7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmmi5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmr10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmr5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr7.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsl10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmsy10.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/c
+msy5.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cms
+y7.pfb>
+Output written on "weak MLTT.pdf" (10 pages, 182786 bytes).
 PDF statistics:
- 108 PDF objects out of 1000 (max. 8388607)
- 77 compressed objects within 1 object stream
+ 105 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
