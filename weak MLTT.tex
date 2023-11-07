@@ -240,6 +240,44 @@ $$\frac{\Gamma, x:\emptyset \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \v
 
 $$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{1} \equiv \emptyset \to \emptyset \; \mathrm{type}}$$
 
+\section{Type of booleans}
+
+Formation rule for the type of booleans
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{2} \; \mathrm{type}}$$
+
+Introduction rule for the type of booleans
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash 0:\mathbb{2}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash 1:\mathbb{2}}$$
+
+Elimination rules for the type of booleans:
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{2}^C:\prod_{a:C(0)} \prod_{b:C(1)} \prod_{x:\mathbb{2}} C(x)}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
+
+Computation rules for the type of booleans:
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, C}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 0) =_{C(0)} a}$$
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, C}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 1) =_{C(1)} b}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(0) \simeq A}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(1) \simeq B}$$
+
+Extensionality rule for the type of booleans:
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{2}:\prod_{x:\mathbb{2}} \prod_{y:\mathbb{2}} (x =_{\mathbb{2}} y) \simeq (\mathrm{typerec}_\mathbb{2}^{\emptyset, \mathbb{1}}(x) \simeq \mathrm{typerec}_\mathbb{2}^{\emptyset, \mathbb{1}}(y))}$$
+
+Judgmental congruence rules for the type of booleans:
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{2}^C \equiv \mathrm{ind}_\mathbb{2}^{C'}:\prod_{a:C(0)} \prod_{b:C(1)} \prod_{x:\mathbb{2}} C(x)}$$
+
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \equiv \mathrm{typerec}_\mathbb{2}^{A', B'}(x) \; \mathrm{type}}$$
+
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, C} \equiv \beta_\mathbb{2}^{0, C'}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 0) =_{C(0)} a}$$
+$$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, C} \equiv \beta_\mathbb{2}^{1, C'}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 1) =_{C(1)} b}$$
+
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, A, B} \equiv \beta_\mathbb{2}^{0, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(0) \simeq A}$$
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, A, B} \equiv \beta_\mathbb{2}^{1, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(1) \simeq B}$$
+
+\section{Sum types}
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \equiv \sum_{x:\mathbb{2}} \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
+
 \section{Type of propositions}
 
 $$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isProp}(A) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isProp}(A) \equiv \prod_{x:A} \prod_{y:A} x =_A y \; \mathrm{type}}$$
@@ -262,13 +300,13 @@ $$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_{\mathrm{Prop}}:\prod
 
 $$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash [A] \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash [A] \equiv \prod_{P:\mathrm{Prop}} (A \to P) \to P \; \mathrm{type}}$$
 
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \vee B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \vee B \equiv \prod_{P:\mathrm{Prop}} ((A \to P) \times (B \to P)) \to P \; \mathrm{type}}$$
-
 $$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \bot \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \bot \equiv [\emptyset] \; \mathrm{type}}$$
 
 $$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \top \; \mathrm{type}} \quad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \top \equiv [\mathbb{1}] \; \mathrm{type}}$$
 
 $$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \neg A \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \neg A \equiv [A \to \emptyset] \; \mathrm{type}}$$
+
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \vee B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \vee B \equiv [A + B] \; \mathrm{type}}$$
 
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \wedge B \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \wedge B \equiv [A \times B] \; \mathrm{type}}$$
 
@@ -283,24 +321,6 @@ $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathr
 $$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{isContr}(A) \equiv \sum_{x:A} \prod_{y:A} x =_A y \; \mathrm{type}}$$
 
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \; \mathrm{type}} \quad \frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \exists!x:A.B(x) \equiv \mathrm{isContr}\left(\sum_{x:A} B(x)\right) \; \mathrm{type}}$$
-
-\section{Type of booleans}
-
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{2} \; \mathrm{type}} \qquad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathbb{2} \equiv \sum_{P:\mathrm{Prop}} P \vee \neg P \; \mathrm{type}}$$
-
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
-
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{\bot, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(\bot) \simeq A}$$
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{\top, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(\top) \simeq B}$$
-
-Judgmental congruence rules for the type of booleans:
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \equiv \mathrm{typerec}_\mathbb{2}^{A', B'}(x) \; \mathrm{type}}$$
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{\bot, A, B} \equiv \beta_\mathbb{2}^{\bot, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(\bot) \simeq A}$$
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{\top, A, B} \equiv \beta_\mathbb{2}^{\top, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(\top) \simeq B}$$
-
-\section{Sum types}
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \; \mathrm{type}}$$
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \equiv \sum_{x:\mathbb{2}} \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
 
 \section{Quotient sets}
 
