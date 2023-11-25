@@ -23,7 +23,7 @@
 \contentsline {section}{\numberline {1.10}Type of booleans}{8}{}%
 \contentsline {section}{\numberline {1.11}Sum types}{9}{}%
 \contentsline {section}{\numberline {1.12}Type of propositions}{9}{}%
-\contentsline {section}{\numberline {1.13}Predicate logic}{9}{}%
+\contentsline {section}{\numberline {1.13}Predicate logic}{10}{}%
 \contentsline {section}{\numberline {1.14}Quotient sets}{10}{}%
-\contentsline {section}{\numberline {1.15}Excluded middle and axiom of choice}{10}{}%
+\contentsline {section}{\numberline {1.15}Excluded middle and axiom of choice}{11}{}%
 \contentsline {section}{\numberline {1.16}Natural numbers type}{11}{}%
