@@ -289,23 +289,23 @@ Introduction rules for the type of propositions:
 $$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \mathrm{toProp}_A:\mathrm{isProp}(A) \to \mathrm{Prop}}$$
 
 Elimination rules for the type of propositions:
-$$\frac{\Gamma \vdash A:\mathrm{Prop}}{\Gamma \vdash A \; \mathrm{type}} \qquad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{proptrunc}:\prod_{A:\mathrm{Prop}} \mathrm{isProp}(\mathrm{El}(A))}$$
+$$\frac{\Gamma \vdash A:\mathrm{Prop}}{\Gamma \vdash \mathrm{El}(A) \; \mathrm{type}} \qquad \frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{proptrunc}:\prod_{A:\mathrm{Prop}} \mathrm{isProp}(\mathrm{El}(A))}$$
 
 Computation rules for the type of propositions:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash p:\mathrm{isProp}(A)}{\Gamma \vdash \mathrm{toProp}_A(p) \equiv A \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash p:\mathrm{isProp}(A)}{\Gamma \vdash \mathrm{El}(\mathrm{toProp}_A(p)) \equiv A \; \mathrm{type}}$$
 
 $$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma \vdash \beta_\mathrm{Prop}^{\mathrm{proptrunc},A}:\prod_{p:\mathrm{isProp}(A)} \mathrm{proptrunc}(\mathrm{toProp}_A(p)) =_{\mathrm{isProp}(A)} p}$$
 
 Uniqueness rules for the type of propositions:
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \eta_{\mathrm{Prop}}:\prod_{A:\mathrm{Prop}} A =_{\mathrm{Prop}} \mathrm{toProp}_{A}(\mathrm{proptrunc}(A))}$$
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \eta_{\mathrm{Prop}}:\prod_{A:\mathrm{Prop}} A =_{\mathrm{Prop}} \mathrm{toProp}_{\mathrm{El}(A)}(\mathrm{proptrunc}(A))}$$
 
-Extensionality principle of the type of propositions:
+Extensionality rule of the type of propositions:
 $$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_{\mathrm{Prop}}:\prod_{A:\mathrm{Prop}} \prod_{B:\mathrm{Prop}} (A =_{\mathrm{Prop}} B) \simeq (A \simeq B)}$$
 
 Judgmental congruence rules for the type of propositions:
 $$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma \vdash \mathrm{toProp}_A \equiv \mathrm{toProp}_A':\mathrm{isProp}(A) \to \mathrm{Prop}}$$
 
-$$\frac{\Gamma \vdash A \equiv A':\mathrm{Prop}}{\Gamma \vdash A \equiv A' \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \equiv A':\mathrm{Prop}}{\Gamma \vdash \mathrm{El}(A) \equiv \mathrm{El}(A') \; \mathrm{type}}$$
 
 $$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma \vdash \beta_\mathrm{Prop}^{\mathrm{proptrunc},A} \equiv \beta_\mathrm{Prop}^{\mathrm{proptrunc},A'}:\prod_{p:\mathrm{isProp}(A)} \mathrm{proptrunc}(\mathrm{toProp}_A(p)) =_{\mathrm{isProp}(A)} p}$$
 
