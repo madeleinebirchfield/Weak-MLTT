@@ -3,27 +3,22 @@
 \contentsline {subsection}{\numberline {1.1.1}Judgments and contexts}{3}{}%
 \contentsline {subsection}{\numberline {1.1.2}Variable rule}{3}{}%
 \contentsline {subsection}{\numberline {1.1.3}Admissible structural rules}{3}{}%
-\contentsline {section}{\numberline {1.2}Basic type formers}{3}{}%
-\contentsline {subsection}{\numberline {1.2.1}Formation rules}{4}{}%
-\contentsline {subsection}{\numberline {1.2.2}Introduction rules}{4}{}%
-\contentsline {subsection}{\numberline {1.2.3}Elimination rules}{4}{}%
-\contentsline {subsection}{\numberline {1.2.4}Computation rules}{4}{}%
-\contentsline {subsection}{\numberline {1.2.5}Uniqueness rules}{5}{}%
-\contentsline {section}{\numberline {1.3}Judgmental equality}{5}{}%
-\contentsline {subsection}{\numberline {1.3.1}Structural rules for judgmental equality}{5}{}%
-\contentsline {subsection}{\numberline {1.3.2}Judgmental congruence rules for dependent function types}{6}{}%
-\contentsline {subsection}{\numberline {1.3.3}Judgmental congruence rules for dependent pair types}{6}{}%
-\contentsline {subsection}{\numberline {1.3.4}Judgmental congruence rules for identity types}{6}{}%
-\contentsline {section}{\numberline {1.4}Product types}{7}{}%
-\contentsline {section}{\numberline {1.5}Function types}{7}{}%
-\contentsline {section}{\numberline {1.6}Equivalence types}{7}{}%
-\contentsline {section}{\numberline {1.7}Function extensionality}{7}{}%
-\contentsline {section}{\numberline {1.8}Empty type}{7}{}%
-\contentsline {section}{\numberline {1.9}Unit type}{7}{}%
-\contentsline {section}{\numberline {1.10}Type of booleans}{8}{}%
-\contentsline {section}{\numberline {1.11}Sum types}{9}{}%
-\contentsline {section}{\numberline {1.12}Type of propositions}{9}{}%
-\contentsline {section}{\numberline {1.13}Predicate logic}{10}{}%
-\contentsline {section}{\numberline {1.14}Quotient sets}{10}{}%
-\contentsline {section}{\numberline {1.15}Excluded middle and axiom of choice}{11}{}%
-\contentsline {section}{\numberline {1.16}Natural numbers type}{11}{}%
+\contentsline {section}{\numberline {1.2}Identity types}{3}{}%
+\contentsline {section}{\numberline {1.3}Judgmental equality}{4}{}%
+\contentsline {subsection}{\numberline {1.3.1}Structural rules for judgmental equality}{4}{}%
+\contentsline {subsection}{\numberline {1.3.2}Judgmental congruence rules for identity types}{5}{}%
+\contentsline {section}{\numberline {1.4}Dependent function types}{5}{}%
+\contentsline {section}{\numberline {1.5}Dependent pair types}{6}{}%
+\contentsline {section}{\numberline {1.6}Product types}{6}{}%
+\contentsline {section}{\numberline {1.7}Function types}{7}{}%
+\contentsline {section}{\numberline {1.8}Equivalence types}{7}{}%
+\contentsline {section}{\numberline {1.9}Function extensionality}{7}{}%
+\contentsline {section}{\numberline {1.10}Empty type}{7}{}%
+\contentsline {section}{\numberline {1.11}Unit type}{7}{}%
+\contentsline {section}{\numberline {1.12}Type of booleans}{8}{}%
+\contentsline {section}{\numberline {1.13}Sum types}{9}{}%
+\contentsline {section}{\numberline {1.14}Type of propositions}{9}{}%
+\contentsline {section}{\numberline {1.15}Predicate logic}{10}{}%
+\contentsline {section}{\numberline {1.16}Quotient sets}{10}{}%
+\contentsline {section}{\numberline {1.17}Excluded middle and axiom of choice}{11}{}%
+\contentsline {section}{\numberline {1.18}Natural numbers type}{11}{}%

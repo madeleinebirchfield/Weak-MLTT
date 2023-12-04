@@ -37,58 +37,19 @@ $$\frac{\Gamma, \Delta \vdash \mathcal{J} \quad \Gamma \vdash A \; \mathrm{type}
 Substitution rule:
 $$\frac{\Gamma \vdash a:A \quad \Gamma, b:A, \Delta(b) \vdash \mathcal{J}(b)}{\Gamma, \Delta(a) \vdash \mathcal{J}(a)}$$
 
-\section{Basic type formers}
-
-The basic type formers of dependent type theory are dependent function types, dependent pair types, and identity types.
-
-\subsection{Formation rules}
-
-Formation rules for dependent function types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \prod_{x:A}.B(x) \; \mathrm{type}}$$
-
-Formation rules for dependent pair types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \sum_{x:A} B(x) \; \mathrm{type}}$$
+\section{Identity types}
 
 Formation rules for identity types:
-$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma, a:A, b:A \vdash \mathrm{Id}_A(a, b) \; \mathrm{type}}$$
-
-\subsection{Introduction rules}
-
-Introduction rules for dependent function types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x)}{\Gamma \vdash \lambda x:A.b(x):\prod_{x:A}.B(x)}$$
-
-Introduction rules for dependent pair types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma, x:A, y:B(x) \vdash \mathrm{pair}_{\sum}^{A, B}(x, y):\sum_{x:A} B(x)}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma, x:A, y:A \vdash x =_A y \; \mathrm{type}}$$
 
 Introduction rules for identity types:
-$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma, a:A \vdash \mathrm{refl}_A(a):\mathrm{Id}_A(a, a)}$$
-
-\subsection{Elimination rules}
-
-Elimination rules for dependent function types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma \vdash f:\prod_{x:A} B(x)}{\Gamma, x:A \vdash f(x):B(x)}$$
-
-Elimination rules for dependent pair types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_{\sum}^{A, B, C}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{z:\sum_{x:A} B(x)} C(z)}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type}}{\Gamma, x:A \vdash \mathrm{refl}_A(x):x =_A y}$$
 
 Dependent elimination rule for identity types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_{=}^{A, C}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \prod_{y:A} \prod_{p:x =_A y} C(x, y, p)}$$
-
-\subsection{Computation rules}
-
-Computation rules for dependent function types
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x)}{\Gamma \vdash \beta_{\prod_{x:A} B(x)}^{x:A.b(x)}:\prod_{x:A} (\lambda x:A.b(x))(x) =_{B(x)} b(x)}$$
-
-Computation rules for dependent pair types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type}}{\Gamma \vdash \beta_{\sum}^{A, B, C}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{x:A} \prod_{y:B(x)} \mathrm{ind}_{\sum}^{A, B, C}(g, \mathrm{pair}_{\sum}^{A, B}(x, y)) =_{C(\mathrm{pair}_{\sum}^{A, B}(x, y))} g(x, y)}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \; \mathrm{type}}{\Gamma, x:A, t:C(x, x, \mathrm{refl}_A(x)), y:A, p:x =_A y, \vdash \mathrm{ind}_{=}^{A, C}(x, t, y, p):C(x, y, p)}$$
 
 Computation rules for identity types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \; \mathrm{type}}{\Gamma \vdash \beta_{\mathrm{ind}_{=}}^{A, C}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \mathrm{ind}_{\mathrm{Id}}^{A, C}(t, x, x, \mathrm{refl}_A(x)) =_{C(x, x, \mathrm{refl}_A(x))} t(x)}$$
-
-\subsection{Uniqueness rules}
-
-Uniqueness rules for dependent function types:
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \eta_{\prod_{x:A} B(x)}:\prod_{f:\prod_{x:A} B(x)} f =_{\prod_{x:A} B(x)} \lambda_{\prod_{x:A} B(x)}^{x:A.f(x)}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \; \mathrm{type}}{\Gamma, x:A, t:C(x, x, \mathrm{refl}_A(x)) \vdash \beta_{\mathrm{ind}_{=}}^{A, C}(x, t):\mathrm{ind}_{=}^{A, C}(x, t, x, \mathrm{refl}_A(x)) =_{C(x, x, \mathrm{refl}_A(x))} t}$$
 
 \section{Judgmental equality}
 
@@ -119,7 +80,43 @@ $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash a \equiv b : A \qua
 Judgmental variable conversion rule:
 $$\frac{\Gamma \vdash A \equiv B \; \mathrm{type} \quad \Gamma, x:A, \Delta \vdash \mathcal{J}}{\Gamma, x:B, \Delta \vdash \mathcal{J}}$$
 
-\subsection{Judgmental congruence rules for dependent function types}
+\subsection{Judgmental congruence rules for identity types}
+
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma, x:A, y:A \vdash x =_A y \equiv x =_A' y}$$
+
+$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma, x:A \vdash \mathrm{refl}_A(x) \equiv \mathrm{refl}_{A'}(x):x =_A x}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \equiv C'(x, y, p) \; \mathrm{type} \\
+\end{array}
+}{\Gamma, x:A, t:C(x, x, \mathrm{refl}_A(x)), y:A, p:x =_A y \vdash \mathrm{ind}_{=}^{A, C}(x, t, y, p) \equiv \mathrm{ind}_{=}^{A', C'}(x, t, y, p):C(x, y, p)}$$
+
+$$\frac{
+\begin{array}{c}
+	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \equiv C'(x, y, p) \; \mathrm{type} \\
+	\Gamma \vdash x \equiv x':A \quad \Gamma \vdash t \equiv t':C(x, x, \mathrm{refl}_A(x)) \\
+\end{array}
+}{\Gamma, x:A, t:C(x, x, \mathrm{refl}_A(x)) \vdash \beta_{ \mathrm{ind}_=}^{A, C}(x, t) \equiv \beta_{\mathrm{ind}_=}^{A', C'}(x, t):\mathrm{ind}_{=}^{A, C}(t, x, x, \mathrm{refl}_A(x)) =_{C(x, x, \mathrm{refl}_A(x))} t}$$
+
+\section{Dependent function types}
+
+Formation rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \prod_{x:A}.B(x) \; \mathrm{type}}$$
+
+Introduction rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x)}{\Gamma \vdash \lambda x:A.b(x):\prod_{x:A}.B(x)}$$
+
+Elimination rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma \vdash f:\prod_{x:A} B(x)}{\Gamma, x:A \vdash f(x):B(x)}$$
+
+Computation rules for dependent function types
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, x:A \vdash b(x):B(x)}{\Gamma \vdash \beta_{\prod_{x:A} B(x)}^{x:A.b(x)}:\prod_{x:A} (\lambda x:A.b(x))(x) =_{B(x)} b(x)}$$
+
+Uniqueness rules for dependent function types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \eta_{\prod_{x:A} B(x)}:\prod_{f:\prod_{x:A} B(x)} f =_{\prod_{x:A} B(x)} \lambda x:A.f(x)}$$
+
+Judgmental congruence rules for dependent function types:
 $$\frac{
 \begin{array}{c}
 	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type}
@@ -154,7 +151,21 @@ $$\frac{
 \end{array}
 }{\Gamma \vdash \eta_{\prod_{x:A} B(x)} \equiv \eta_{\prod_{x:A} B'(x)}:\prod_{f:\prod_{x:A} B(x)} f =_{\prod_{x:A} B(x)} \lambda x:A.f(x)}$$
 
-\subsection{Judgmental congruence rules for dependent pair types}
+\section{Dependent pair types}
+
+Formation rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma \vdash \sum_{x:A} B(x) \; \mathrm{type}}$$
+
+Introduction rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type}}{\Gamma, x:A, y:B(x) \vdash \mathrm{pair}_{\sum}^{A, B}(x, y):\sum_{x:A} B(x)}$$
+
+Elimination rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_{\sum}^{A, B, C}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{z:\sum_{x:A} B(x)} C(z)}$$
+
+Computation rules for dependent pair types:
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \; \mathrm{type}}{\Gamma \vdash \beta_{\sum}^{A, B, C}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{x:A} \prod_{y:B(x)} \mathrm{ind}_{\sum}^{A, B, C}(g, \mathrm{pair}_{\sum}^{A, B}(x, y)) =_{C(\mathrm{pair}_{\sum}^{A, B}(x, y))} g(x, y)}$$
+
+Judgmental congruence rules for dependent pair types:
 
 $$\frac{
 \begin{array}{c}
@@ -179,24 +190,6 @@ $$\frac{
 \Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A \vdash B(x) \equiv B'(x) \; \mathrm{type} \quad \Gamma, z:\sum_{x:A} B(x) \vdash C(z) \equiv C'(z) \; \mathrm{type}
 \end{array}
 }{\Gamma \vdash \beta_{\sum}^{A, B, C} \equiv \beta_{\sum}^{A', B', C'}:\prod_{g:\prod_{x:A} \prod_{y:B(x)} C(\mathrm{pair}_{\sum}^{A, B}(x, y))} \prod_{x:A} \prod_{y:B(x)} \mathrm{ind}_{\sum}^{A, B, C}(g, \mathrm{pair}_{\sum}^{A, B}(x, y)) =_{C(\mathrm{pair}_{\sum}^{A, B}(x, y))} g(x, y)}$$
-
-\subsection{Judgmental congruence rules for identity types}
-
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma, x:A, y:A \vdash x =_A y \equiv x =_A' y}$$
-
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type}}{\Gamma \vdash \mathrm{refl}_A \equiv \mathrm{refl}_{A'}:\prod_{x:A} x =_A x}$$
-
-$$\frac{
-\begin{array}{c}
-	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \equiv C'(x, y, p) \; \mathrm{type}
-\end{array}
-}{\Gamma \vdash \mathrm{ind}_{=}^{A, C} \equiv \mathrm{ind}_{=}^{A', C'}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \prod_{y:A} \prod_{p:x =_A y} C(x, y, p)}$$
-
-$$\frac{
-\begin{array}{c}
-	\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma, x:A, y:A, p:x =_A y \vdash C(x, y, p) \equiv C'(x, y, p) \; \mathrm{type}
-\end{array}
-}{\Gamma \vdash \beta_{ \mathrm{ind}_=}^{A, C} \equiv \beta_{\mathrm{ind}_=}^{A', C'}:\prod_{t:\prod_{x:A} C(x, x, \mathrm{refl}_A(x))} \prod_{x:A} \mathrm{ind}_{=}^{A, C}(t, x, x, \mathrm{refl}_A(x)) =_{C(x, x, \mathrm{refl}_A(x))} t(x)}$$
 
 \section{Product types}
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A \times B \; \mathrm{type}}$$
