@@ -244,32 +244,22 @@ $$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash 0:\mathbb{2}} \quad \frac{\Gamma \
 Elimination rules for the type of booleans:
 $$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{2}^C:\prod_{a:C(0)} \prod_{b:C(1)} \prod_{x:\mathbb{2}} C(x)}$$
 
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
-
 Computation rules for the type of booleans:
 $$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, C}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 0) =_{C(0)} a}$$
 $$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, C}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 1) =_{C(1)} b}$$
 
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(0) \simeq A}$$
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, A, B}:\mathrm{typerec}_\mathbb{2}^{A, B}(1) \simeq B}$$
-
 Extensionality rule for the type of booleans:
-$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{2}:\prod_{x:\mathbb{2}} \prod_{y:\mathbb{2}} (x =_{\mathbb{2}} y) \simeq (\mathrm{typerec}_\mathbb{2}^{\emptyset, \mathbb{1}}(x) \simeq \mathrm{typerec}_\mathbb{2}^{\emptyset, \mathbb{1}}(y))}$$
+$$\frac{\Gamma \; \mathrm{ctx}}{\Gamma \vdash \mathrm{ext}_\mathbb{2}:\prod_{x:\mathbb{2}} \prod_{y:\mathbb{2}} (x =_{\mathbb{2}} y) \simeq (((x =_\mathbb{2} 1) \to \mathbb{1}) \times ((x =_\mathbb{2} 0) \to \mathbb{0}) \simeq ((y =_\mathbb{2} 1) \to \mathbb{1}) \times ((y =_\mathbb{2} 0) \to \mathbb{0}))}$$
 
 Judgmental congruence rules for the type of booleans:
 $$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \mathrm{ind}_\mathbb{2}^C \equiv \mathrm{ind}_\mathbb{2}^{C'}:\prod_{a:C(0)} \prod_{b:C(1)} \prod_{x:\mathbb{2}} C(x)}$$
 
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma, x:\mathbb{2} \vdash \mathrm{typerec}_\mathbb{2}^{A, B}(x) \equiv \mathrm{typerec}_\mathbb{2}^{A', B'}(x) \; \mathrm{type}}$$
-
 $$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, C} \equiv \beta_\mathbb{2}^{0, C'}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 0) =_{C(0)} a}$$
 $$\frac{\Gamma, x:\mathbb{2} \vdash C(x) \equiv C'(x) \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, C} \equiv \beta_\mathbb{2}^{1, C'}:\prod_{a:C(0)} \prod_{b:C(1)} \mathrm{ind}_\mathbb{2}^C(a, b, 1) =_{C(1)} b}$$
 
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{0, A, B} \equiv \beta_\mathbb{2}^{0, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(0) \simeq A}$$
-$$\frac{\Gamma \vdash A \equiv A' \; \mathrm{type} \quad \Gamma \vdash B \equiv B' \; \mathrm{type}}{\Gamma \vdash \beta_\mathbb{2}^{1, A, B} \equiv \beta_\mathbb{2}^{1, A', B'}:\mathrm{typerec}_\mathbb{2}^{A, B}(1) \simeq B}$$
-
 \section{Sum types}
 $$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \; \mathrm{type}}$$
-$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \equiv \sum_{x:\mathbb{2}} \mathrm{typerec}_\mathbb{2}^{A, B}(x) \; \mathrm{type}}$$
+$$\frac{\Gamma \vdash A \; \mathrm{type} \quad \Gamma \vdash B \; \mathrm{type}}{\Gamma \vdash A + B \equiv \sum_{x:\mathbb{2}} ((x =_\mathbb{2} 1) \to A) \times ((x =_\mathbb{2} 0) \to B) \; \mathrm{type}}$$
 
 \section{Type of propositions}
 

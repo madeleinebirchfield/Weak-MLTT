@@ -16,9 +16,9 @@
 \contentsline {section}{\numberline {1.10}Empty type}{7}{}%
 \contentsline {section}{\numberline {1.11}Unit type}{7}{}%
 \contentsline {section}{\numberline {1.12}Type of booleans}{8}{}%
-\contentsline {section}{\numberline {1.13}Sum types}{9}{}%
-\contentsline {section}{\numberline {1.14}Type of propositions}{9}{}%
-\contentsline {section}{\numberline {1.15}Predicate logic}{10}{}%
+\contentsline {section}{\numberline {1.13}Sum types}{8}{}%
+\contentsline {section}{\numberline {1.14}Type of propositions}{8}{}%
+\contentsline {section}{\numberline {1.15}Predicate logic}{9}{}%
 \contentsline {section}{\numberline {1.16}Quotient sets}{10}{}%
-\contentsline {section}{\numberline {1.17}Excluded middle and axiom of choice}{11}{}%
+\contentsline {section}{\numberline {1.17}Excluded middle and axiom of choice}{10}{}%
 \contentsline {section}{\numberline {1.18}Natural numbers type}{11}{}%
